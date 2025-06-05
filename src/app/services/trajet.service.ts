@@ -8,8 +8,8 @@ export interface Trajet {
   conducteur: string;
   depart: string;
   destination: string;
-  date: string;   // iso date string
-  heure: string;  // time string
+  date: string;  
+  heure: string;  
   nbPlaces: number;
 }
 
@@ -18,7 +18,7 @@ export interface Trajet {
 })
 export class TrajetService {
 
-  private apiUrl = 'http://localhost:8080/api/trajets'; // adapte l'URL selon ton backend
+  private apiUrl = 'http://localhost:8080/api/trajets'; 
 
   constructor(private http: HttpClient) {}
 
@@ -39,5 +39,7 @@ export class TrajetService {
 
    return this.http.get<Trajet[]>(`${this.apiUrl}/search`, { params });
 }
-
+  incrementerVu(trajetId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/${trajetId}/increment-vu`, {});
+  }
 }

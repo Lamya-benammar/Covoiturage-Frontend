@@ -24,6 +24,9 @@ export class HomeComponent implements OnInit {
   userDropdownOpen = false;
   notifDropdownOpen = false;
     trajets: Trajet[] = [];
+sidebarOpen = false;
+trajetSelectionne: any = null;  // trajet sélectionné à passer à la modale
+
 
   constructor(private trajetService: TrajetService) {}
 
@@ -36,7 +39,13 @@ export class HomeComponent implements OnInit {
       this.trajets = data;
     });
   }
+toggleSidebar() {
+  this.sidebarOpen = !this.sidebarOpen;
+}
 
+closeSidebar() {
+  this.sidebarOpen = false;
+}
 onSearch() {
   this.trajetService.searchTrajets(
     this.search.depart,
@@ -72,9 +81,6 @@ onSearch() {
   }
 
 
-
-
-
   toggleUserDropdown() {
     this.userDropdownOpen = !this.userDropdownOpen;
     if (this.userDropdownOpen) this.notifDropdownOpen = false;
@@ -97,5 +103,22 @@ onSearch() {
     }, 150);
   }
 
+   ouvrirModal(trajet: any) {
+    
+    this.trajetService.incrementerVu(trajet.id).subscribe({
+      next: () => {
   
+        trajet.vu = (trajet.vu ?? 0) + 1;
+      },
+      error: (err) => console.error('Erreur incrémentation nombre de vues', err)
+    });
+    
+    this.trajetSelectionne = trajet;
+  }
+
+  // fonction appelée quand la modale demande à se fermer
+  fermerModal() {
+    this.trajetSelectionne = null;
+  }
 }
+

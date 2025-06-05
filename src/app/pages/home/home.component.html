@@ -1,10 +1,10 @@
 <div class="home-container">
   <header class="header-bar">
-    <div class="header-left">
-      <h1>Covoiturage</h1>
-    </div>
+    <app-sidebar #sidebar></app-sidebar>
 
     <div class="header-right">
+  
+
       <div class="notification-menu" (click)="toggleNotifDropdown()" tabindex="0" (blur)="closeNotifDropdown()">
         <i class="fas fa-bell notif-icon"></i>
         <div class="notif-dropdown" [class.show]="notifDropdownOpen">
@@ -43,8 +43,14 @@
 <h3><strong class="label">Date :</strong> <span class="value">{{ trajet.date }} à {{ trajet.heure }}</span></h3>
 <h3><strong class="label">Places demandées :</strong> <span class="value">{{ trajet.nbPlaces }}</span></h3>
 
-        <button class="btn-secondary" (click)="consulterTrajet(trajet)">Détails</button>
+        <button class="btn-secondary"  (click)="ouvrirModal(trajet)">Détails</button>
       </div>
     </div>
   </main>
 </div>
+<app-trajet-details-modal
+  *ngIf="trajetSelectionne"
+  [trajet]="trajetSelectionne"
+  [userName]="userName"
+  (close)="fermerModal()">
+</app-trajet-details-modal>

@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: 	#0077b6	; /* 👈 Modifie ici si tu veux une autre couleur */
+  background-color: 	#0077b6	; 
   color: white;
   padding: 20px 40px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -20,6 +20,7 @@
 .header-left h1 {
   font-size: 2rem;
   margin: 0;
+  left: 50%;
 }
 
 .header-right {
@@ -39,7 +40,7 @@
 
 .user-icon:hover,
 .notif-icon:hover {
-  color: #F4A261 ;/* jaune doré */
+  color: #F4A261 ;
   transform: scale(1.2);
 }
 .notif-icon {
@@ -55,7 +56,7 @@
   height: 10px;
   background-color: red;
   border-radius: 50%;
-  border: 2px solid white; /* contour blanc pour plus de clarté */
+  border: 2px solid white; 
 }
 
 
@@ -72,12 +73,12 @@
 .user-name {
   margin-left: 6px;
   font-weight: 500;
-  font-size: 1.2rem;       /* taille augmentée */
-  font-weight: 600;        /* un peu plus gras */
+  font-size: 1.2rem;       
+  font-weight: 600;        
   margin-left: 8px;
   color: #ffffff;
   font-family: 'Segoe UI', sans-serif;
-  text-transform: capitalize;  /* si tu veux que ça commence par une majuscule */
+  text-transform: capitalize;  
 }
 
 /* Dropdowns */
@@ -127,15 +128,15 @@
   padding: 14px 16px;
   border: 2px solid #dcdde1;
   border-radius: 8px;
-  font-size: 1.3rem;          /* plus grand */
-  font-weight: 500;           /* plus dynamique */
+  font-size: 1.3rem;         
+  font-weight: 500;        
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   outline: none;
 }
 
 .search-form input:focus {
-  border-color: #E76F51;      /* accent couleur */
+  border-color: #E76F51;      
   box-shadow: 0 0 8px rgba(231, 111, 81, 0.5);
 }
 .search-form input {
@@ -159,17 +160,17 @@
   background-color: #F4A261 ;
 }
 
-/* Trajet Cards */
+
 .trajet-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 👈 3 cards par ligne */
-  gap: 30px; /* 👈 espace entre les cards */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 30px; 
   padding: 30px;
 }
 
 
 .card h1 {
-  font-size:2rem;     /* conducteur en plus gros */
+  font-size:2rem;     
   font-weight: 700;
   color: #936639;
   margin-bottom: 10px;
@@ -180,20 +181,25 @@
   color: #444;
 }
 .card {
-  background-color: white;
+  background-color: rgba(232, 235, 238, 0.908);
   border-left: 6px solid #3498db;
   border-radius: 12px;
   padding: 25px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
-  min-height: 220px; /* 👈 plus grand en hauteur */
+  min-height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-   font-size: 1.1rem;     /* taille augmentée pour tout le texte */
+   font-size: 1.1rem;  
   line-height: 1.6;  
+   position: relative;
+  overflow: hidden;
+    z-index: 1;
 }
-.card h3 abel {
+
+
+.card h3 label {
   margin: 6px 0;
   font-size: 1.15rem;
   line-height: 1.5;
@@ -202,7 +208,7 @@
 
 
 .card h3 .value {
-  color: #264653;     /* couleur pour la valeur */
+  color: #264653;    
   font-weight: 400;
   margin-left: 6px;
 }
@@ -228,4 +234,106 @@
 
 .btn-secondary:hover {
   background-color: #F4A261 ;
+}
+.map-icon {
+  font-size: 1.8rem;
+  color: #2a9d8f;
+  cursor: pointer;
+  margin-left: 20px;
+}
+.map-container {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 1000px;
+  background: white;
+  z-index: 1000;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+#leaflet-map {
+  height: 400px;
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.map-infos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.map-infos button {
+  background-color: #2a9d8f;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+/* Sidebar de base, caché à gauche */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* caché hors écran */
+  width: 250px;
+  height: 100vh;
+  background-color: #333;
+  color: white;
+  padding-top: 60px; /* pour ne pas cacher header */
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 20px;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.sidebar ul li a:hover {
+  background-color: #555;
+}
+
+/* Décaler le contenu principal quand sidebar est ouvert */
+.home-container.sidebar-open .main-content,
+.home-container.sidebar-open .header-bar {
+  margin-left: 350px;
+  transition: margin-left 0.3s ease;
+  left: 50px;
+}
+.main-content {
+  margin-left: 250px; /* espace pour le sidebar */
+  /* largeur du contenu */
+ 
+}
+
+/* Style pour l’icône menu */
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+.search-form,
+.trajet-list {
+  position: relative;
+  z-index: 200;
 }

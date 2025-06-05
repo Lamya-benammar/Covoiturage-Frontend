@@ -1,0 +1,33 @@
+<div class="modal" *ngIf="trajet">
+  <div class="modal-content">
+    <button class="close-btn" (click)="fermer()">&times;</button>
+
+    <h2>Détails du annonce :</h2> 
+
+
+<div class="trajet-info">
+  <div><span class="label">Conducteur :</span> <span>  {{ trajet.conducteur }}</span></div>
+  <div><span class="label">Email :</span> <span>  {{ trajet.email }}</span></div>
+  <div><span class="label">Départ :</span> <span>  {{ trajet.depart }}</span></div>
+  <div><span class="label">Destination :</span> <span>  {{ trajet.destination }}</span></div>
+  <div><span class="label">Date et heure :</span> <span>  {{ trajet.date }} à {{ trajet.heure }}</span></div>
+  <div><span class="label">Places demandées :</span> <span>  {{ trajet.nbPlaces }}</span></div>
+</div>
+
+
+        <h3> <i class="fas fa-eye"></i> {{ trajet.vu }}</h3>
+    <h3>Commentaires</h3>
+    <ul>
+      <li *ngFor="let com of trajet.commentaires">
+        <strong>{{ com.auteur }}:</strong> {{ com.texte }}
+      </li>
+    </ul>
+
+    <div class="add-comment">
+      <textarea [(ngModel)]="nouveauCommentaire" placeholder="Ajouter un commentaire..."></textarea>
+      <button (click)="ajouterCommentaire()" class="btn-secondary">Envoyer</button>
+    <button  class="btn-secondary">Réserver</button>
+    </div>
+    
+  </div>
+</div>
