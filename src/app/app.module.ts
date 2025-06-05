@@ -5,12 +5,20 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { HttpClientModule } from '@angular/common/http';  // <-- IMPORTER ICI
-
+import { HttpClientModule } from '@angular/common/http';
+import { SidebarComponent } from './sidebar/sidebar.component'; 
+import { AppRoutingModule } from './app-routing.module';
+import { AnnonceComponent } from './annonce/annonce.component';
+import { ProfileComponent } from './profile/profile.component';
+import { TrajetDetailsModalComponent } from './trajet-details-modal/trajet-details-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    SidebarComponent,
+    AnnonceComponent,
+    ProfileComponent,
+    TrajetDetailsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -19,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';  // <-- IMPORTER ICI
     RouterModule.forRoot([
       { path: '', component: HomeComponent } 
     ]),
+    AppRoutingModule
  
   ],
   providers: [],
