@@ -42,4 +42,11 @@ export class TrajetService {
   incrementerVu(trajetId: number): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/${trajetId}/increment-vu`, {});
   }
+ 
+  reserverPlace(id: number) {
+    return this.http.post(`${this.apiUrl}/${id}/reserver`, {}); 
+  }
+    createTrajet(trajet: any): Observable<any> {
+    return this.http.post(this.apiUrl, trajet);
+  }
 }

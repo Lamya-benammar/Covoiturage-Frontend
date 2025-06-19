@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TrajetService } from '../services/trajet.service';
 
 @Component({
   selector: 'app-annonce',
@@ -19,14 +20,52 @@ export class AnnonceComponent {
     'Nouveau message de Paul',
     'Rappel : paiement en attente',
   ];
-
+trajet = {
+    conducteur: '',
+    email: '',
+    depart: '',
+    destination: '',
+    date: '',
+    heure: '',
+    nbPlaces: 1,
+    prix: 0,
+  };
   userDropdownOpen = false;
   notifDropdownOpen = false;
   sidebarOpen = false;
- logout() {
-    alert('Déconnexion effectuée (à implémenter)');
-    // Ici tu peux appeler ton service d’authentification pour déconnecter l’utilisateur
+  showToast = false;
+
+ 
+
+  constructor(private trajetService: TrajetService) {}
+
+  creerTrajet() {
+    this.trajetService.createTrajet(this.trajet).subscribe({
+      next: (data) => {
+  
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 3000);
+        this.trajet = {
+          conducteur: '',
+          email: '',
+          depart: '',
+          destination: '',
+          date: '',
+          heure: '',
+          nbPlaces: 1,
+          prix: 0,
+        };
+      },
+      error: (err) => alert('Erreur lors de la création : ' + err.message),
+    });
   }
+
+  logout() {
+    alert('Déconnexion effectuée (à implémenter)');
+  }
+
   toggleUserDropdown() {
     this.userDropdownOpen = !this.userDropdownOpen;
     if (this.userDropdownOpen) this.notifDropdownOpen = false;

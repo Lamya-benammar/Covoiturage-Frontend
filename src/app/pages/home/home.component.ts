@@ -34,11 +34,13 @@ trajetSelectionne: any = null;  // trajet sélectionné à passer à la modale
     this.loadAllTrajets();
   }
 
-  loadAllTrajets() {
-    this.trajetService.getAllTrajets().subscribe(data => {
-      this.trajets = data;
-    });
-  }
+loadAllTrajets() {
+  this.trajetService.getAllTrajets().subscribe(data => {
+    this.trajets = data.filter(trajet => trajet.nbPlaces > 0);
+  });
+}
+
+
 toggleSidebar() {
   this.sidebarOpen = !this.sidebarOpen;
 }
@@ -59,7 +61,7 @@ onSearch() {
 
 
   consulterTrajet(trajet: Trajet) {
-    // logique détails trajet
+ 
   }
 
   dropdownOpen = false;
@@ -69,7 +71,7 @@ onSearch() {
   }
 
   closeDropdown() {
-    // timeout pour laisser le clic sur bouton déconnexion se faire
+
     setTimeout(() => {
       this.dropdownOpen = false;
     }, 150);
@@ -77,7 +79,7 @@ onSearch() {
 
   logout() {
     alert('Déconnexion effectuée (à implémenter)');
-    // Ici tu peux appeler ton service d’authentification pour déconnecter l’utilisateur
+    
   }
 
 
@@ -116,7 +118,6 @@ onSearch() {
     this.trajetSelectionne = trajet;
   }
 
-  // fonction appelée quand la modale demande à se fermer
   fermerModal() {
     this.trajetSelectionne = null;
   }

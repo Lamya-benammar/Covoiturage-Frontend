@@ -111,3 +111,61 @@
   cursor: pointer;
   width: 100%;
 }
+.trajet-form {
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-group input {
+  padding: 10px 14px;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4A90E2;
+  box-shadow: 0 0 6px #4A90E2;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 12px 0;
+  background: linear-gradient(90deg, #4A90E2 0%, #357ABD 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-submit:disabled {
+  background: #a0c1f7;
+  cursor: not-allowed;
+}
+
+.btn-submit:not(:disabled):hover {
+  background: linear-gradient(90deg, #357ABD 0%, #4A90E2 100%);
+}

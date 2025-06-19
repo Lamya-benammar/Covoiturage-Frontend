@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Commentaire } from '../models/commentaire.model'; // adapte le chemin selon ta structure
-import { CommentaireService } from '../services/commentaire.service'; // idem
+import { Commentaire } from '../models/commentaire.model';
+import { CommentaireService } from '../services/commentaire.service';
+import { TrajetService } from '../services/trajet.service';
 
 @Component({
   selector: 'app-trajet-details-modal',
@@ -16,10 +17,11 @@ export class TrajetDetailsModalComponent implements OnChanges {
 
   nouveauCommentaire: string = '';
 
-  commentaires: Commentaire[] = [];  // Liste locale des commentaires chargés
+  commentaires: Commentaire[] = [];  
 
-  constructor(private CommentaireService: CommentaireService) {}
+@Output() trajetReserve = new EventEmitter<number>(); 
 
+  constructor(private trajetService: TrajetService,private CommentaireService: CommentaireService) {}
   ngOnChanges(changes: SimpleChanges) {
     if (changes['trajet'] && this.trajet) {
       this.chargerCommentaires();
@@ -43,5 +45,25 @@ export class TrajetDetailsModalComponent implements OnChanges {
 
   ajouterCommentaire() {
    
+  }
+
+ reserverPlace() {
+    if (this.trajet.nbPlaces <= 0) {
+      alert('Plus de places disponibles');
+      return;
+    }
+
+    this.trajetService.reserverPlace(this.trajet.id).subscribe({
+      next: () => {
+        this.trajet.nbPlaces--;
+        alert(`Réservation réussie ! ${this.trajet.conducteur} a une place réservée avec vous.`);
+
+        if (this.trajet.nbPlaces === 0) {
+          this.trajetReserve.emit(this.trajet.id); 
+          this.fermer(); 
+        }
+      },
+      error: () => alert('Erreur lors de la réservation. Veuillez réessayer.'),
+    });
   }
 }
