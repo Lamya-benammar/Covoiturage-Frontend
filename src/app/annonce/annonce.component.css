@@ -112,7 +112,7 @@
   width: 100%;
 }
 .trajet-form {
-  max-width: 450px;
+  max-width: 850px;
   margin: 20px auto;
   padding: 25px;
   background-color: #fff;
@@ -131,7 +131,7 @@
   margin-bottom: 6px;
   font-weight: 600;
   color: #333;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .form-group input {
@@ -149,9 +149,9 @@
 }
 
 .btn-submit {
-  width: 100%;
+  width: 30%;
   padding: 12px 0;
-  background: linear-gradient(90deg, #4A90E2 0%, #357ABD 100%);
+   background-color: #E76F51;
   border: none;
   border-radius: 8px;
   color: white;
@@ -159,13 +159,54 @@
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
+    display: block;
+  margin-left: auto; 
+  
 }
 
 .btn-submit:disabled {
-  background: #a0c1f7;
+ background-color: #f39a84;
   cursor: not-allowed;
 }
 
+.btn-submit:hover {
+  background-color: #F4A261 ;
+}
 .btn-submit:not(:disabled):hover {
   background: linear-gradient(90deg, #357ABD 0%, #4A90E2 100%);
+}
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #4caf50;
+  color: white;
+  padding: 20px 40px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  opacity: 0.95;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.toast-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.toast-enter-active {
+  opacity: 0.95;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.toast-leave {
+  opacity: 0.95;
+  transform: translateY(0);
+}
+.toast-leave-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }

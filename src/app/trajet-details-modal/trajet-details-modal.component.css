@@ -83,10 +83,16 @@
   transition: background-color 0.2s ease;
   font-size: 1.4rem;
   font-weight: 500;
+  display: block;
+  margin-left: auto; 
+}
+
+.btn-secondary:hover {
+  background-color: #F4A261 ;
 }
 
 .btn-primary {
-  background-color: #264653; /* couleur différente */
+  background-color: #264653; 
   color: white;
   padding: 10px 16px;
   border: none;

@@ -52,5 +52,12 @@
   *ngIf="trajetSelectionne"
   [trajet]="trajetSelectionne"
   [userName]="userName"
+    (trajetReserve)="onTrajetReserve($event)"
   (close)="fermerModal()">
 </app-trajet-details-modal>
+<div class="toast" *ngIf="showToast">
+  Réservation envoyée avec succès !
+</div>
+
+
+

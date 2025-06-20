@@ -337,3 +337,40 @@
   position: relative;
   z-index: 200;
 }
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #4caf50;
+  color: white;
+  padding: 20px 40px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  opacity: 0.95;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.toast-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.toast-enter-active {
+  opacity: 0.95;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.toast-leave {
+  opacity: 0.95;
+  transform: translateY(0);
+}
+.toast-leave-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+

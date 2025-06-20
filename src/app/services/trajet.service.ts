@@ -43,10 +43,28 @@ export class TrajetService {
     return this.http.post<void>(`${this.apiUrl}/${trajetId}/increment-vu`, {});
   }
  
-  reserverPlace(id: number) {
-    return this.http.post(`${this.apiUrl}/${id}/reserver`, {}); 
-  }
+ reserverPlace(id: number, email: string) {
+  return this.http.post(
+    `${this.apiUrl}/${id}/reserver?clientName=${email}`,
+    {},
+    { responseType: 'text' }
+  );
+}
+
+
     createTrajet(trajet: any): Observable<any> {
     return this.http.post(this.apiUrl, trajet);
+  }
+   getTrajetsParConducteur(userId: string): Observable<Trajet[]> {
+    return this.http.get<Trajet[]>(`${this.apiUrl}/user/${userId}`);
+
+  }
+
+  deleteTrajet(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  updateTrajet(id: number, trajet: Trajet): Observable<Trajet> {
+    return this.http.put<Trajet>(`${this.apiUrl}/${id}`, trajet);
   }
 }

@@ -25,13 +25,15 @@ export class HomeComponent implements OnInit {
   notifDropdownOpen = false;
     trajets: Trajet[] = [];
 sidebarOpen = false;
-trajetSelectionne: any = null;  // trajet sélectionné à passer à la modale
+showToast = false;
+trajetSelectionne: any = null;  
 
 
   constructor(private trajetService: TrajetService) {}
 
   ngOnInit(): void {
     this.loadAllTrajets();
+
   }
 
 loadAllTrajets() {
@@ -121,5 +123,17 @@ onSearch() {
   fermerModal() {
     this.trajetSelectionne = null;
   }
+onTrajetReserve(event: { id: number; success: boolean }) {
+  if (event.success) {
+    this.loadAllTrajets();
+    this.showToast = true;
+
+    setTimeout(() => {
+      this.showToast = false;
+    }, 3000);
+  }
+}
+
+
 }
 

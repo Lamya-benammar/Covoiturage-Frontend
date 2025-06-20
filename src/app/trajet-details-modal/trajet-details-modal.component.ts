@@ -14,12 +14,13 @@ export class TrajetDetailsModalComponent implements OnChanges {
   @Input() userName: string = '';       
 
   @Output() close = new EventEmitter<void>();
+  
 
   nouveauCommentaire: string = '';
 
   commentaires: Commentaire[] = [];  
 
-@Output() trajetReserve = new EventEmitter<number>(); 
+@Output() trajetReserve = new EventEmitter<{ id: number; success: boolean }>();
 
   constructor(private trajetService: TrajetService,private CommentaireService: CommentaireService) {}
   ngOnChanges(changes: SimpleChanges) {
@@ -45,25 +46,22 @@ export class TrajetDetailsModalComponent implements OnChanges {
 
   ajouterCommentaire() {
    
+  }reserverPlace() {
+  if (this.trajet.nbPlaces <= 0) {
+    alert('Plus de places disponibles');
+    return;
   }
 
- reserverPlace() {
-    if (this.trajet.nbPlaces <= 0) {
-      alert('Plus de places disponibles');
-      return;
-    }
+  const email = 'Lamya'; // statique pr le moment 
 
-    this.trajetService.reserverPlace(this.trajet.id).subscribe({
-      next: () => {
-        this.trajet.nbPlaces--;
-        alert(`Réservation réussie ! ${this.trajet.conducteur} a une place réservée avec vous.`);
+  this.trajetService.reserverPlace(this.trajet.id, email).subscribe({
+    next: () => {
+      this.trajet.nbPlaces--;
+      this.trajetReserve.emit({ id: this.trajet.id, success: true });
 
-        if (this.trajet.nbPlaces === 0) {
-          this.trajetReserve.emit(this.trajet.id); 
-          this.fermer(); 
-        }
-      },
-      error: () => alert('Erreur lors de la réservation. Veuillez réessayer.'),
-    });
-  }
+      this.fermer(); 
+    },
+    error: () => alert('Erreur lors de la réservation. Veuillez réessayer.')
+  });
+}
 }

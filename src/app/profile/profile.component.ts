@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { TrajetService } from '../services/trajet.service';
+import { Trajet } from '../services/trajet.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -13,7 +14,8 @@ export class ProfileComponent {
     date: '',
     passengers: 1
   };
-
+ email ='amalghannoudi@gmail.com'
+ userId ='1'
   notifications: string[] = [
     'Votre trajet du 15 juin a été confirmé',
     'Nouveau message de Paul',
@@ -23,9 +25,20 @@ export class ProfileComponent {
   userDropdownOpen = false;
   notifDropdownOpen = false;
   sidebarOpen = false;
+    trajets: Trajet[] = [];
+
+  constructor(
+    private trajetService: TrajetService,
+  
+  ) {}
+
+  ngOnInit(): void {
+
+  this.loadUserTrajets(this.userId);
+
+  }
  logout() {
     alert('Déconnexion effectuée (à implémenter)');
-    // Ici tu peux appeler ton service d’authentification pour déconnecter l’utilisateur
   }
   toggleUserDropdown() {
     this.userDropdownOpen = !this.userDropdownOpen;
@@ -47,5 +60,30 @@ export class ProfileComponent {
     setTimeout(() => {
       this.notifDropdownOpen = false;
     }, 150);
+  }
+ loadUserTrajets(userId: string): void {
+  this.trajetService.getTrajetsParConducteur(userId).subscribe({
+    next: (data) => this.trajets = data,
+    error: (err) => console.error('Erreur chargement trajets', err)
+  });
+}
+
+  modifierTrajet(trajet: Trajet): void {
+    
+  }
+
+  deleteTrajet(id: number): void {
+    if (confirm('Voulez-vous vraiment supprimer ce trajet ?')) {
+      this.trajetService.deleteTrajet(id).subscribe({
+        next: () => {
+          this.notifications.push('Trajet supprimé avec succès');
+          this.trajets = this.trajets.filter(t => t.id !== id);
+        },
+        error: (err) => {
+          console.error('Erreur suppression trajet', err);
+          this.notifications.push('Erreur lors de la suppression');
+        }
+      });
+    }
   }
 }
