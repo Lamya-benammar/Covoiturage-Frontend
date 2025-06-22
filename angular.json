@@ -3,7 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+<<<<<<< HEAD
     "covoiturage": {
+=======
+    "front": {
+>>>>>>> f5d06312c7fb7b23d9e654094fa1fbeff7977e77
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +17,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+<<<<<<< HEAD
             "outputPath": "dist/covoiturage",
+=======
+            "outputPath": "dist/front",
+>>>>>>> f5d06312c7fb7b23d9e654094fa1fbeff7977e77
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -25,7 +33,10 @@
               "src/assets"
             ],
             "styles": [
+<<<<<<< HEAD
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+=======
+>>>>>>> f5d06312c7fb7b23d9e654094fa1fbeff7977e77
               "src/styles.css"
             ],
             "scripts": []
@@ -61,10 +72,17 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
+<<<<<<< HEAD
               "browserTarget": "covoiturage:build:production"
             },
             "development": {
               "browserTarget": "covoiturage:build:development"
+=======
+              "browserTarget": "front:build:production"
+            },
+            "development": {
+              "browserTarget": "front:build:development"
+>>>>>>> f5d06312c7fb7b23d9e654094fa1fbeff7977e77
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +90,11 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
+<<<<<<< HEAD
             "browserTarget": "covoiturage:build"
+=======
+            "browserTarget": "front:build"
+>>>>>>> f5d06312c7fb7b23d9e654094fa1fbeff7977e77
           }
         },
         "test": {
@@ -88,12 +110,25 @@
               "src/assets"
             ],
             "styles": [
+<<<<<<< HEAD
               "src/styles.css"
             ],
+=======
+  "node_modules/leaflet/dist/leaflet.css",
+  "src/styles.css"
+],
+
+>>>>>>> f5d06312c7fb7b23d9e654094fa1fbeff7977e77
             "scripts": []
           }
         }
       }
     }
+<<<<<<< HEAD
+=======
+  },
+  "cli": {
+    "analytics": false
+>>>>>>> f5d06312c7fb7b23d9e654094fa1fbeff7977e77
   }
 }

@@ -1,0 +1,63 @@
+<div class="home-container">
+  <header class="header-bar">
+    <app-sidebar #sidebar></app-sidebar>
+
+    <div class="header-right">
+  
+
+      <div class="notification-menu" (click)="toggleNotifDropdown()" tabindex="0" (blur)="closeNotifDropdown()">
+        <i class="fas fa-bell notif-icon"></i>
+        <div class="notif-dropdown" [class.show]="notifDropdownOpen">
+  
+             <ul *ngIf="notifications.length > 0">
+            <li *ngFor="let notif of notifications">{{ notif }}</li>
+          </ul>
+          <p *ngIf="notifications.length === 0">Aucune notification</p>
+        </div>
+      </div>
+
+      <div class="user-menu" (click)="toggleUserDropdown()" tabindex="0" (blur)="closeUserDropdown()">
+        <i class="fas fa-user-circle user-icon"></i>
+        <span class="user-name">{{ userName }}</span>
+        <div class="dropdown" [class.show]="userDropdownOpen">
+          <button (click)="logout()">Se déconnecter</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <form class="search-form" (ngSubmit)="onSearch()">
+      <input type="text" [(ngModel)]="search.depart" name="depart" placeholder="Lieu de départ" required autocomplete="off" />
+      <input type="text" [(ngModel)]="search.destination" name="destination" placeholder="Destination" required autocomplete="off" />
+      <input type="date" [(ngModel)]="search.date" name="date" required />
+      <input type="number" [(ngModel)]="search.passengers" name="passengers" min="1" placeholder="Passagers" required />
+      <button type="submit" class="btn-primary">Rechercher</button>
+    </form>
+
+    <div class="trajet-list">
+      <div class="card" *ngFor="let trajet of trajets">
+        <h1>{{ trajet.conducteur }}</h1>
+        <h3><strong class="label">Départ :</strong> <span class="value">{{ trajet.depart }}</span></h3>
+<h3><strong class="label">Destination :</strong> <span class="value">{{ trajet.destination }}</span></h3>
+<h3><strong class="label">Date :</strong> <span class="value">{{ trajet.date }} à {{ trajet.heure }}</span></h3>
+<h3><strong class="label">Places demandées :</strong> <span class="value">{{ trajet.nbPlaces }}</span></h3>
+
+        <button class="btn-secondary"  (click)="ouvrirModal(trajet)">Détails</button>
+      </div>
+    </div>
+  </main>
+</div>
+<app-trajet-details-modal
+  *ngIf="trajetSelectionne"
+  [trajet]="trajetSelectionne"
+  [userName]="userName"
+    (trajetReserve)="onTrajetReserve($event)"
+  (close)="fermerModal()">
+</app-trajet-details-modal>
+<div class="toast" *ngIf="showToast">
+  Réservation envoyée avec succès !
+</div>
+
+
+

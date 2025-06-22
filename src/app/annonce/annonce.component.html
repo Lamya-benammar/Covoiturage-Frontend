@@ -1,0 +1,71 @@
+<div class="home-container">
+  <header class="header-bar">
+    <app-sidebar #sidebar></app-sidebar>
+
+    <div class="header-right">
+  
+
+      <div class="notification-menu" (click)="toggleNotifDropdown()" tabindex="0" (blur)="closeNotifDropdown()">
+        <i class="fas fa-bell notif-icon"></i>
+        <div class="notif-dropdown" [class.show]="notifDropdownOpen">
+  
+             <ul *ngIf="notifications.length > 0">
+            <li *ngFor="let notif of notifications">{{ notif }}</li>
+          </ul>
+          <p *ngIf="notifications.length === 0">Aucune notification</p>
+        </div>
+      </div>
+
+      <div class="user-menu" (click)="toggleUserDropdown()" tabindex="0" (blur)="closeUserDropdown()">
+        <i class="fas fa-user-circle user-icon"></i>
+        <span class="user-name">{{ userName }}</span>
+        <div class="dropdown" [class.show]="userDropdownOpen">
+          <button (click)="logout()">Se déconnecter</button>
+        </div>
+      </div>
+    </div>
+  </header>
+   <form (ngSubmit)="creerTrajet()" #trajetForm="ngForm" class="trajet-form">
+
+  <div class="form-group">
+    <label for="email">Votre Nom :</label>
+    <input id="email" type="text" [(ngModel)]="trajet.conducteur" name="test" required>
+  </div>
+
+  <div class="form-group">
+    <label for="depart">Ville de départ :</label>
+    <input id="depart" type="text" [(ngModel)]="trajet.depart" name="depart" required>
+  </div>
+
+  <div class="form-group">
+    <label for="destination"> Destination :</label>
+    <input id="destination" type="text" [(ngModel)]="trajet.destination" name="destination" required>
+  </div>
+
+  <div class="form-group">
+    <label for="date">Date :</label>
+    <input id="date" type="date" [(ngModel)]="trajet.date" name="date" required>
+  </div>
+
+  <div class="form-group">
+    <label for="heure">Heure :</label>
+    <input id="heure" type="time" [(ngModel)]="trajet.heure" name="heure" required>
+  </div>
+
+  <div class="form-group">
+    <label for="nbPlaces">Nombre de places :</label>
+    <input id="nbPlaces" type="number" [(ngModel)]="trajet.nbPlaces" name="nbPlaces" min="1" max="4" required>
+  </div>
+
+  <div class="form-group">
+    <label for="prix">Prix proposé :</label>
+    <input id="prix" type="number" [(ngModel)]="trajet.prix" name="prix" step="0.01" required>
+  </div>
+
+  <button type="submit" [disabled]="trajetForm.invalid" class="btn-submit">Créer l'annonce</button>
+  <div class="toast" *ngIf="showToast">
+  Annonce créée avec succès !
+</div>
+
+</form>
+</div>

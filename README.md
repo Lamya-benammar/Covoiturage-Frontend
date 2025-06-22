@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Covoiturage
+=======
+# Front
+>>>>>>> f5d06312c7fb7b23d9e654094fa1fbeff7977e77
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
 
