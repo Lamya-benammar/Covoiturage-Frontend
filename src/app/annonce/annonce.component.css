@@ -134,7 +134,7 @@
   font-size: 20px;
 }
 
-.form-group input {
+.form-group input,select {
   padding: 10px 14px;
   border: 1.8px solid #ccc;
   border-radius: 6px;
@@ -142,7 +142,7 @@
   transition: border-color 0.3s ease;
 }
 
-.form-group input:focus {
+.form-group input:focus,select:focus {
   outline: none;
   border-color: #4A90E2;
   box-shadow: 0 0 6px #4A90E2;
@@ -188,25 +188,4 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   opacity: 0.95;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-.toast-enter {
-  opacity: 0;
-  transform: translateY(20px);
-}
-.toast-enter-active {
-  opacity: 0.95;
-  transform: translateY(0);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.toast-leave {
-  opacity: 0.95;
-  transform: translateY(0);
-}
-.toast-leave-active {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
 }

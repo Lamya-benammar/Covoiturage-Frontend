@@ -20,7 +20,13 @@ export class AnnonceComponent {
     'Nouveau message de Paul',
     'Rappel : paiement en attente',
   ];
-trajet = {
+  vehicules = [
+    { id: 1, marque: 'Toyota', immatricule: '123-2005' },
+    { id: 2, marque: 'Ford', immatricule: '123-2005' },
+    { id: 3, marque: 'Volkswagen', immatricule: '123-2005' },
+  ];
+
+  trajet = {
     conducteur: '',
     email: '',
     depart: '',
@@ -29,7 +35,25 @@ trajet = {
     heure: '',
     nbPlaces: 1,
     prix: 0,
+    vehicule: {
+      immatricule: '',
+      marque: ''
+    }
   };
+
+  selectedVehiculeId: number | null = null;
+/*
+  onVehiculeChange() {
+    const vehiculeSelectionne = this.vehicules.find(v => v.id === +this.selectedVehiculeId);
+    if (vehiculeSelectionne) {
+      this.trajet.vehicule.marque = vehiculeSelectionne.marque;
+      this.trajet.vehicule.immatricule = vehiculeSelectionne.immatricule;
+    } else {
+      this.trajet.vehicule.marque = '';
+      this.trajet.vehicule.immatricule = '';
+    }
+  }*/
+
   userDropdownOpen = false;
   notifDropdownOpen = false;
   sidebarOpen = false;
@@ -56,6 +80,10 @@ trajet = {
           heure: '',
           nbPlaces: 1,
           prix: 0,
+           vehicule: {
+    immatricule: '',
+    marque: ''
+  }
         };
       },
       error: (err) => alert('Erreur lors de la création : ' + err.message),
@@ -87,4 +115,5 @@ trajet = {
       this.notifDropdownOpen = false;
     }, 150);
   }
+  
 }

@@ -51,6 +51,14 @@
     <label for="heure">Heure :</label>
     <input id="heure" type="time" [(ngModel)]="trajet.heure" name="heure" required>
   </div>
+<div class="form-group">
+  <label for="vehicule">Véhicule :</label>
+  <select id="vehicule" [(ngModel)]="trajet.vehicule" name="vehiculeId" required>
+    <option *ngFor="let v of vehicules" [value]="v.id">
+      {{ v.id }} - {{ v.marque }} {{ v.immatricule|| '' }}
+    </option>
+  </select>
+</div>
 
   <div class="form-group">
     <label for="nbPlaces">Nombre de places :</label>

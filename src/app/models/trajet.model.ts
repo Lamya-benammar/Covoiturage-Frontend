@@ -1,4 +1,4 @@
-import { Commentaire } from './commentaire.model';
+
 
 export interface Trajet {
   id: number;
@@ -12,6 +12,10 @@ export interface Trajet {
    user: {
     id: number;
     email: string;
-  };         
-  commentaires?: Commentaire[]; 
+  };    
+   vehicule: {
+    immatricule: '',
+    marque: ''
+  }     
+  
 }

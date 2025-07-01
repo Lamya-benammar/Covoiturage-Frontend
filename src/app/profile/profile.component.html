@@ -25,3 +25,134 @@
       </div>
     </div>
   </header>
+    <div class="container p-4 space-y-6">
+      <!-- Section 1: Infos personnelles -->
+    <div class="bg-white rounded-2xl shadow-md p-4">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+    <h2 class="text-xl font-semibold mb-0">Informations personnelles</h2>
+    <div class="actions" style="display: flex; gap: 8px;">
+      <button title="Modifier" class="btn btn-lg btn-primary">
+        <i class="fa fa-edit"></i>
+      </button>
+    </div>
+  </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div><strong>Nom :</strong> {{ nom }}</div>
+          <div><strong>Prénom :</strong> {{ prenom }}</div>
+          <div><strong>Email :</strong> {{ email }}</div>
+        </div>
+
+      </div>
+
+      <!-- Section 2: Mes annonces -->
+   <!-- Section 2: Mes annonces -->
+<div class="bg-white rounded-2xl shadow-md p-4">
+  <h2 class="text-xl font-semibold mb-4">Mes annonces</h2>
+  <table class="w-full text-left">
+    <thead>
+      <tr class="border-b">
+        <th>Départ</th>
+        <th>Destination</th>
+        <th>Date</th>
+        <th>Heure</th>
+        <th>Places</th>
+        <th>Prix</th>
+        <th>Etat</th>
+        <th>Actions</th> <!-- nouvelle colonne -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let annonce of annonces">
+        <td>{{ annonce.depart }}</td>
+        <td>{{ annonce.destination }}</td>
+        <td>{{ annonce.date }}</td>
+        <td>{{ annonce.heure }}</td>
+        <td>{{ annonce.nbPlaces }}</td>
+        <td>{{ annonce.prix }} DT</td>
+        <td>{{ annonce.etat }}</td>
+        <td>
+          <div class="actions" style="display: flex; justify-content: flex-end; gap: 8px;">
+            <button title="Modifier" class="btn btn-lg btn-primary">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button title="Supprimer" class="btn btn-lg btn-danger">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+      <!-- Section 3: Ma voiture -->
+      <!-- Section 3: Ma voiture -->
+<div class="bg-white rounded-2xl shadow-md p-4">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+    <h2 class="text-xl font-semibold mb-0">Ma voiture</h2>
+<button class="btn btn-lg btn-success mb-4" data-bs-toggle="modal" data-bs-target="#vehiculeModal">
+      <i class="fa fa-plus"></i> 
+    </button>
+  </div>
+
+  <table class="w-full text-left">
+    <thead>
+      <tr class="border-b">
+        <th>Marque</th>
+        <th>Immatriculation</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+   <div *ngIf="noVehiculeMessage"  style="text-align: center; margin-top: 20px;">
+  Aucun véhicule disponible !
+</div>
+
+<div *ngIf="!noVehiculeMessage">
+      <tr *ngFor="let vehicule of vehicules">
+        <td>{{ vehicule.marque }}</td>
+        <td>{{ vehicule.immatriculation }}</td>
+        <td>
+          <div class="actions" style="display: flex; gap: 8px;">
+            <button title="Modifier" class="btn btn-lg btn-primary">
+              <i class="fa fa-edit"></i>
+            </button>
+      <button (click)="onDeleteVehicule(vehicule.id)" title="Supprimer" class="btn btn-lg btn-danger">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      </div>
+    </tbody>
+  </table>
+</div>
+
+    </div>
+<div class="modal fade" id="vehiculeModal" tabindex="-1" aria-labelledby="vehiculeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-3">
+      <div class="modal-header">
+        <h5 class="modal-title" id="vehiculeModalLabel">Ajouter un véhicule</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="marque" class="form-label">Marque</label>
+            <input type="text" class="form-control" id="marque" [(ngModel)]="nouveauVehicule.marque" name="marque">
+          </div>
+          <div class="mb-3">
+            <label for="immatriculation" class="form-label">Immatriculation</label>
+            <input type="text" class="form-control" id="immatriculation" [(ngModel)]="nouveauVehicule.immatriculation" name="immatriculation">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button class="btn btn-primary" (click)="ajouterVehicule()" data-bs-dismiss="modal">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
