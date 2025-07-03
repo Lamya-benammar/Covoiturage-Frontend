@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Vehicule {
-  id: number;
-  marque: string;
-  immatriculation: string;
-}
+import { Vehicule } from '../models/vehicule.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +20,9 @@ getVehiculeByUserId(userId: number): Observable<Vehicule[]> {
   }
 
   addVehicule(userId: number, vehicule: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/user/${userId}`, vehicule);
+}
+updateVehicule(userId: number, vehicule: any): Observable<any> {
   return this.http.post(`${this.apiUrl}/user/${userId}`, vehicule);
 }
 }

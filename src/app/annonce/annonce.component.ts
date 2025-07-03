@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TrajetService } from '../services/trajet.service';
+import { TrajetService } from '../services/trajet.service'; // adapte le chemin si nécessaire
 
 @Component({
   selector: 'app-annonce',
@@ -7,7 +7,8 @@ import { TrajetService } from '../services/trajet.service';
   styleUrls: ['./annonce.component.css']
 })
 export class AnnonceComponent {
-  userName = 'Ghannoudi Amal ';
+  userName = 'Ghannoudi Amal';
+
   search = {
     depart: '',
     destination: '',
@@ -20,6 +21,7 @@ export class AnnonceComponent {
     'Nouveau message de Paul',
     'Rappel : paiement en attente',
   ];
+
   vehicules = [
     { id: 1, marque: 'Toyota', immatricule: '123-2005' },
     { id: 2, marque: 'Ford', immatricule: '123-2005' },
@@ -27,7 +29,14 @@ export class AnnonceComponent {
   ];
 
   trajet = {
-    conducteur: '',
+     conducteur: {
+    id: 0,
+    firstname: '',
+    lastname: '',
+    email: '',
+    phone: null,
+    role: null
+  },
     email: '',
     depart: '',
     destination: '',
@@ -38,41 +47,38 @@ export class AnnonceComponent {
     vehicule: {
       immatricule: '',
       marque: ''
-    }
+    },
+    typeAnnonce: 'cherche'
   };
 
   selectedVehiculeId: number | null = null;
-/*
-  onVehiculeChange() {
-    const vehiculeSelectionne = this.vehicules.find(v => v.id === +this.selectedVehiculeId);
-    if (vehiculeSelectionne) {
-      this.trajet.vehicule.marque = vehiculeSelectionne.marque;
-      this.trajet.vehicule.immatricule = vehiculeSelectionne.immatricule;
-    } else {
-      this.trajet.vehicule.marque = '';
-      this.trajet.vehicule.immatricule = '';
-    }
-  }*/
 
   userDropdownOpen = false;
   notifDropdownOpen = false;
   sidebarOpen = false;
   showToast = false;
-
- 
-
+userId= 1 ; 
+vehiculeId=1;
   constructor(private trajetService: TrajetService) {}
 
   creerTrajet() {
-    this.trajetService.createTrajet(this.trajet).subscribe({
+    this.trajetService.createTrajet(this.userId, this.vehiculeId,this.trajet).subscribe({
       next: (data) => {
-  
         this.showToast = true;
         setTimeout(() => {
           this.showToast = false;
         }, 3000);
+
+       
         this.trajet = {
-          conducteur: '',
+            conducteur: {
+    id: 0,
+    firstname: '',
+    lastname: '',
+    email: '',
+    phone: null,
+    role: null
+  },
           email: '',
           depart: '',
           destination: '',
@@ -80,10 +86,11 @@ export class AnnonceComponent {
           heure: '',
           nbPlaces: 1,
           prix: 0,
-           vehicule: {
-    immatricule: '',
-    marque: ''
-  }
+          vehicule: {
+            immatricule: '',
+            marque: ''
+          },
+          typeAnnonce: 'cherche'
         };
       },
       error: (err) => alert('Erreur lors de la création : ' + err.message),
@@ -115,5 +122,4 @@ export class AnnonceComponent {
       this.notifDropdownOpen = false;
     }, 150);
   }
-  
 }

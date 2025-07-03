@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Commentaire } from '../models/commentaire.model';
-import { CommentaireService } from '../services/commentaire.service';
-import { TrajetService } from '../services/trajet.service';
+import { Commentaire } from '../../models/commentaire.model';
+import { CommentaireService } from '../../services/commentaire.service';
+import { TrajetService } from '../../services/trajet.service';
 
 @Component({
   selector: 'app-trajet-details-modal',

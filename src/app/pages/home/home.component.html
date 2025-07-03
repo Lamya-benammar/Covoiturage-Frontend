@@ -36,8 +36,18 @@
     </form>
 
     <div class="trajet-list">
+      
       <div class="card" *ngFor="let trajet of trajets">
-        <h1>{{ trajet.conducteur }}</h1>
+       <div class="card-header" [ngClass]="trajet.typeAnnonce">
+    <i class="fa" [ngClass]="{
+      'fa-search': trajet.typeAnnonce === 'cherche',
+      'fa-car': trajet.typeAnnonce === 'postule'
+    }"></i>
+    {{ trajet.typeAnnonce === 'cherche' ? 'Demande de trajet' : 'Proposition de trajet' }}
+  </div>
+     <h1>{{ trajet.conducteur.firstname}} {{ trajet.conducteur.lastname}}</h1>
+
+
         <h3><strong class="label">Départ :</strong> <span class="value">{{ trajet.depart }}</span></h3>
 <h3><strong class="label">Destination :</strong> <span class="value">{{ trajet.destination }}</span></h3>
 <h3><strong class="label">Date :</strong> <span class="value">{{ trajet.date }} à {{ trajet.heure }}</span></h3>

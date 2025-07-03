@@ -1,0 +1,26 @@
+<div class="modal fade" id="vehiculeModal" tabindex="-1" aria-labelledby="vehiculeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content rounded-3">
+      <div class="modal-header">
+        <h5 class="modal-title" id="vehiculeModalLabel">Ajouter une voiture</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="marque" class="form-label">Marque</label>
+            <input type="text" class="form-control" id="marque" [(ngModel)]="nouveauVehicule.marque" name="marque">
+          </div>
+          <div class="mb-3">
+            <label for="immatriculation" class="form-label">Immatriculation</label>
+            <input type="text" class="form-control" id="immatriculation" [(ngModel)]="nouveauVehicule.immatricule" name="immatriculation">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button class="btn btn-primary" (click)="ajouterVehicule()" data-bs-dismiss="modal">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>

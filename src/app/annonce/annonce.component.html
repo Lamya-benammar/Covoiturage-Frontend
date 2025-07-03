@@ -24,12 +24,22 @@
         </div>
       </div>
     </div>
-  </header>
-   <form (ngSubmit)="creerTrajet()" #trajetForm="ngForm" class="trajet-form">
-
+  </header><form (ngSubmit)="creerTrajet()" #trajetForm="ngForm" class="trajet-form">
+<form (ngSubmit)="creerTrajet()" #trajetForm="ngForm" class="trajet-form">
+  <div class="form-group radio-group">
+  <label>Type de trajet :</label>
+  <label class="radio-option">
+    <input type="radio" name="typeAnnonce" [(ngModel)]="trajet.typeAnnonce" value="cherche">
+    Cherche un trajet
+  </label>
+  <label class="radio-option">
+    <input type="radio" name="typeAnnonce" [(ngModel)]="trajet.typeAnnonce" value="postule">
+    Propose un trajet
+  </label>
+</div>
   <div class="form-group">
     <label for="email">Votre Nom :</label>
-    <input id="email" type="text" [(ngModel)]="trajet.conducteur" name="test" required>
+    <input id="email" type="text" [(ngModel)]="trajet.conducteur.email" name="test" required>
   </div>
 
   <div class="form-group">
@@ -51,29 +61,35 @@
     <label for="heure">Heure :</label>
     <input id="heure" type="time" [(ngModel)]="trajet.heure" name="heure" required>
   </div>
-<div class="form-group">
-  <label for="vehicule">Véhicule :</label>
-  <select id="vehicule" [(ngModel)]="trajet.vehicule" name="vehiculeId" required>
-    <option *ngFor="let v of vehicules" [value]="v.id">
-      {{ v.id }} - {{ v.marque }} {{ v.immatricule|| '' }}
-    </option>
-  </select>
-</div>
+
+  <!-- ✅ Radio bouton lié à trajet.typeAnnonce -->
+
+
+  <!-- ✅ Véhicule visible uniquement si postule -->
+  <div class="form-group" *ngIf="trajet.typeAnnonce === 'postule'">
+    <label for="vehicule">Véhicule :</label>
+    <select id="vehicule" [(ngModel)]="trajet.vehicule" name="vehiculeId" required>
+      <option *ngFor="let v of vehicules" [ngValue]="v">
+        {{ v.id }} - {{ v.marque }} {{ v.immatricule || '' }}
+      </option>
+    </select>
+  </div>
 
   <div class="form-group">
     <label for="nbPlaces">Nombre de places :</label>
     <input id="nbPlaces" type="number" [(ngModel)]="trajet.nbPlaces" name="nbPlaces" min="1" max="4" required>
   </div>
 
-  <div class="form-group">
+  <!-- ✅ Prix visible uniquement si postule -->
+  <div class="form-group" *ngIf="trajet.typeAnnonce === 'postule'">
     <label for="prix">Prix proposé :</label>
     <input id="prix" type="number" [(ngModel)]="trajet.prix" name="prix" step="0.01" required>
   </div>
 
   <button type="submit" [disabled]="trajetForm.invalid" class="btn-submit">Créer l'annonce</button>
+
   <div class="toast" *ngIf="showToast">
-  Annonce créée avec succès !
-</div>
+    Annonce créée avec succès !
+  </div>
 
 </form>
-</div>

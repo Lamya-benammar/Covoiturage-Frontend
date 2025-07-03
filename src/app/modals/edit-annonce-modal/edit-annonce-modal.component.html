@@ -1,0 +1,83 @@
+<div class="modal fade" id="editAnnonceModal" tabindex="-1" aria-labelledby="editAnnonceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content rounded-3">
+      
+      <div class="modal-header">
+        <h5 class="modal-title" id="editAnnonceModalLabel">Modifier l'annonce</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      
+      <div class="modal-body">
+        <form #form="ngForm" >
+
+          <div class="mb-3">
+            <label for="depart" class="form-label">Départ</label>
+            <input
+              type="text"
+              class="form-control"
+              id="depart"
+              name="depart"
+              [(ngModel)]="annonceModifie.depart"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="destination" class="form-label">Destination</label>
+            <input
+              type="text"
+              class="form-control"
+              id="destination"
+              name="destination"
+              [(ngModel)]="annonceModifie.destination"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="date"
+              name="date"
+              [(ngModel)]="annonceModifie.date"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="heure" class="form-label">Heure</label>
+            <input
+              type="time"
+              class="form-control"
+              id="heure"
+              name="heure"
+              [(ngModel)]="annonceModifie.heure"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="places" class="form-label">Places disponibles</label>
+            <input
+              type="number"
+              class="form-control"
+              id="places"
+              name="places"
+              [(ngModel)]="annonceModifie.nbPlaces"
+              required
+              min="1"
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button class="btn btn-primary" (click)="modifierAnnonce()">Enregistrer</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

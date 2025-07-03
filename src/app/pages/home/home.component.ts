@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TrajetService, Trajet } from './../../services/trajet.service';
+import { TrajetService} from './../../services/trajet.service';
+import { Trajet } from 'src/app/models/trajet.model';
 
 @Component({
   selector: 'app-home',
@@ -38,6 +39,7 @@ trajetSelectionne: any = null;
 
 loadAllTrajets() {
   this.trajetService.getAllTrajets().subscribe(data => {
+    console.log(data);  // <-- Regarde ici ce que tu reçois côté console
     this.trajets = data.filter(trajet => trajet.nbPlaces > 0);
   });
 }

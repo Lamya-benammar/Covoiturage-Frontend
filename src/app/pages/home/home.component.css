@@ -374,3 +374,27 @@
 }
 
 
+.card-header {
+  padding: 10px;
+  color: rgb(15, 1, 1);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-header.cherche {
+  background-color: #f0d3b8; 
+}
+
+.card-header.postule {
+  background-color: #b0e3f5;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.fa {
+  font-size: 1.2rem;
+}

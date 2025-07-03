@@ -189,3 +189,38 @@
   z-index: 1000;
   opacity: 0.95;
 }
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 10px;
+  accent-color: #007BFF; /* Couleur bleue Bootstrap */
+  transform: scale(1.2);
+}
+
+.radio-option:hover {
+  background-color: #f1f1f1;
+}
+
+.radio-option input[type="radio"]:checked + span {
+  font-weight: bold;
+}
+
+.radio-option input[type="radio"]:checked {
+  box-shadow: 0 0 0 2px #007BFF;
+}

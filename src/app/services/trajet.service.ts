@@ -2,16 +2,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-export interface Trajet {
-  id: number;
-  conducteur: string;
-  depart: string;
-  destination: string;
-  date: string;  
-  heure: string;  
-  nbPlaces: number;
-}
+import { Trajet } from '../models/trajet.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,12 +43,13 @@ export class TrajetService {
 }
 
 
-    createTrajet(trajet: any): Observable<any> {
-    return this.http.post(this.apiUrl, trajet);
-  }
-   getTrajetsParConducteur(userId: string): Observable<Trajet[]> {
-    return this.http.get<Trajet[]>(`${this.apiUrl}/user/${userId}`);
+ createTrajet(userId: number, vehiculeId: number, trajetData: any): Observable<Trajet> {
+  const url = `${this.apiUrl}/${userId}/vehicules/${vehiculeId}`;
+  return this.http.post<Trajet>(url, trajetData);
+}
 
+    getTrajetsByUser(userId: number): Observable<Trajet[]> {
+    return this.http.get<Trajet[]>(`${this.apiUrl}/user/${userId}`);
   }
 
   deleteTrajet(id: number): Observable<void> {
