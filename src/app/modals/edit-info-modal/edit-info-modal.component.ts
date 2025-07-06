@@ -1,41 +1,48 @@
 import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/userService';
+
 @Component({
   selector: 'app-edit-info-modal',
   templateUrl: './edit-info-modal.component.html',
   styleUrls: ['./edit-info-modal.component.css']
 })
-export class EditInfoModalComponent {
-  @Input() user: User | null = null;
-  @Output() userModif = new EventEmitter<User>();
+export class EditInfoModalComponent implements OnChanges {
 
-  editedUser: User = {
+  @Input() user: User | null = null;
+  @Output() infoModifie = new EventEmitter<User>();
+  @Output() fermeture = new EventEmitter<void>();
+
+  userInfo: User = {
     id: 0,
-    firstname: '',
-    lastname: '',
+    name: '',
+    lastName: '',
     email: '',
-    phone: ''
+    phone: '',
   };
 
-  ngOnChanges() {
-    if (this.user) {
-      this.editedUser = { ...this.user };
+  constructor(private userService: UserService) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['user'] && this.user) {
+      this.userInfo = { ...this.user };
     }
   }
 
-  saveChanges() {
-    this.userModif.emit(this.editedUser);
+  modifierInfo(): void {
+    this.userService.updateUser(this.userInfo.id, this.userInfo).subscribe({
+      next: (updatedUser) => {
+        console.log('Utilisateur modifié avec succès');
+        this.infoModifie.emit(updatedUser);
+        this.fermerModal();
+      },
+      error: err => {
+        console.error('Erreur lors de la modification des infos utilisateur', err);
+      }
+    });
   }
 
- isModalOpen = false; // Pour afficher ou masquer le modal
-
-openModal(user: any) {
-  this.editedUser = { ...user }; // Clonage pour ne pas modifier directement l'objet original
-  this.isModalOpen = true;
-}
-
-closeModal() {
-  this.isModalOpen = false;
-}
+  fermerModal(): void {
+    this.fermeture.emit();
+  }
 }

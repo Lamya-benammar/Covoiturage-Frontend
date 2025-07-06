@@ -4,6 +4,8 @@ import { VehiculeService } from '../services/vehicule.service';
 import { Vehicule } from 'src/app/models/vehicule.model';
 import { Trajet } from '../models/trajet.model';
 import { User } from '../models/user.model';
+import { UserService } from '../services/userService';
+
 
 @Component({
   selector: 'app-profile',
@@ -13,12 +15,20 @@ import { User } from '../models/user.model';
 export class ProfileComponent implements OnInit {
   // --- Infos utilisateur ---
   userId = '1';
-  userName = 'Ghannoudi Amal';
+ /* userName = 'Ghannoudi Amal';
   email = 'amalghannoudi@gmail.com';
   nom = 'Ghannoudi';
   prenom = 'Amal';
-  phone = '12345678';
+  phone = '12345678';*/
+user: User = {
+  id: 0,
+  name: '',
+  lastName: '',
+  email: '',
+  phone: ''
+};
 
+editedUserInfo?: User;
   // --- Notifications ---
   notifications: string[] = [
     'Votre annonce#1 est vue par 7 personnes',
@@ -68,15 +78,26 @@ export class ProfileComponent implements OnInit {
     etat: ''
   };
 
-  editedUserInfo: any = {};
   Id=1;
 
   constructor(
     private trajetService: TrajetService,
-    private vehiculeService: VehiculeService
+    private vehiculeService: VehiculeService,
+      private userService: UserService
   ) {}
 
   ngOnInit(): void {
+   
+    const userId = 1; 
+    this.userService.getUserById(userId).subscribe({
+      next: (user) => {
+        this.userSelectionne = user;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement de l’utilisateur', err);
+      }
+    });
+  
     this.loadTrajets();
     this.loadVehicule();
   }
@@ -86,21 +107,13 @@ export class ProfileComponent implements OnInit {
     alert('Déconnexion effectuée (à implémenter)');
   }
 
-  modifierInfos() {
-    // ouvrir un formulaire modal ou rediriger vers une page de modification
-  }
-
-  gererAnnonces() {
-    // rediriger vers la gestion des annonces
-  }
-
-  saveUserInfoChanges() {
+ /* saveUserInfoChanges() {
     this.nom = this.editedUserInfo.nom;
     this.prenom = this.editedUserInfo.prenom;
     this.email = this.editedUserInfo.email;
     this.phone = this.editedUserInfo.phone;
     console.log('Infos modifiées');
-  }
+  }*/
 
   // --- Gestion dropdown UI ---
   toggleUserDropdown() {
@@ -129,9 +142,6 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  modifierTrajet(trajet: Trajet): void {
-    // Implémentation future
-  }
 
 
 
@@ -146,13 +156,14 @@ export class ProfileComponent implements OnInit {
     this.annonceSelectionne = null;
     this.fermerModal();
   }
-  onInfoModif(userModifie: User) {
-  this.nom = userModifie.firstname;
-  this.prenom = userModifie.lastname;
-  this.email = userModifie.email;
-  this.phone = userModifie.phone;
-}
 
+
+  onInfoModif(userModifie: User) {
+    const index = this.users.findIndex(v => v.id === userModifie.id);
+    if (index !== -1) this.users[index] = userModifie;
+      this.userSelectionne = userModifie;
+
+  }
 
   saveAnnonceChanges() {
     console.log('Sauvegarde de l\'annonce modifiée :', this.selectedAnnonce);
@@ -198,6 +209,12 @@ export class ProfileComponent implements OnInit {
     this.vehiculeSelectionne = { ...vehicule };
     console.log("selectionné: ",this.vehiculeSelectionne)
   }
+
+
+selectInfo(user: User): void {
+  this.userSelectionne = { ...user }; 
+  this.editedUserInfo = { ...user }; 
+}
 
   saveVehiculeChanges() {
     console.log('Sauvegarde du véhicule modifié :', this.selectedVehicule);

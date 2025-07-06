@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input,SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Output, Input,SimpleChanges,OnChanges } from '@angular/core';
 import { Trajet } from 'src/app/models/trajet.model';
 import { TrajetService } from 'src/app/services/trajet.service';
 
@@ -7,11 +7,13 @@ import { TrajetService } from 'src/app/services/trajet.service';
   templateUrl: './edit-annonce-modal.component.html',
   styleUrls: ['./edit-annonce-modal.component.css']
 })
-export class EditAnnonceModalComponent {
-@Input() trajet: Trajet | null = null;
-  @Output() annonceModif = new EventEmitter<Trajet>();
+
+export class EditAnnonceModalComponent implements OnChanges {
+  @Input() trajet!: any;
+  @Output() annonceModif = new EventEmitter<any>();
   @Output() fermeture = new EventEmitter<void>();
- annonceModifie = {
+
+  annonceModifie = {
     depart: '',
     destination: '',
     date: '',
@@ -21,20 +23,40 @@ export class EditAnnonceModalComponent {
     etat: ''
   };
 
+  constructor(private trajetService: TrajetService) {}
 
-    constructor(private trajetService: TrajetService) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['trajet'] && this.trajet) {
+      this.annonceModifie = {
+        depart: this.trajet.depart,
+        destination: this.trajet.destination,
+        date: this.trajet.date,
+        heure: this.trajet.heure,
+        nbPlaces: this.trajet.nbPlaces,
+        prix: this.trajet.prix,
+        etat: this.trajet.etat
+      };
+    }
+  }
 
   modifierAnnonce(): void {
-    console.log('click');
-    if (!this.trajet?.id) {
-      console.error('ID du trajet manquant');
+    if (!this.trajet?.id || !this.trajet?.user?.id) {
+      console.error('ID du trajet ou ID de l\'utilisateur manquant');
       return;
     }
 
-    this.trajetService.updateTrajet(this.trajet.id, this.annonceModifie).subscribe({
+    const updatedTrajet = {
+      ...this.annonceModifie,
+      id: this.trajet.id,
+      user: {
+        id: this.trajet.user.id
+      }
+    };
+
+    this.trajetService.updateTrajet(this.trajet.id, updatedTrajet).subscribe({
       next: () => {
         console.log('Annonce (trajet) modifiée avec succès');
-        this.annonceModif.emit(this.annonceModifie);
+        this.annonceModif.emit(updatedTrajet);
         this.fermerModal();
       },
       error: err => {
@@ -46,5 +68,4 @@ export class EditAnnonceModalComponent {
   fermerModal(): void {
     this.fermeture.emit();
   }
-  
 }

@@ -18,7 +18,7 @@
 
       <div class="user-menu" (click)="toggleUserDropdown()" tabindex="0" (blur)="closeUserDropdown()">
         <i class="fas fa-user-circle user-icon"></i>
-        <span class="user-name">{{ userName }}</span>
+        <span class="user-name">{{ userSelectionne?.name }} {{ userSelectionne?.lastName }}</span>
         <div class="dropdown" [class.show]="userDropdownOpen">
           <button (click)="logout()">Se déconnecter</button>
         </div>
@@ -32,16 +32,21 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
       <h2 class="text-xl font-semibold mb-0">Informations personnelles</h2>
       <div class="actions" style="display: flex; gap: 8px;">
-        <button title="Modifier" class="btn btn-lg btn-primary">
-          <i class="fa fa-edit"></i>
-        </button>
+          <button 
+  title="Modifier"
+  data-bs-toggle="modal"
+  data-bs-target="#editInfoModal"
+  (click)="selectInfo(user)"
+  class="btn btn-primary">
+  <i class="fa fa-edit"></i>
+</button>
       </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div><strong>Nom :</strong> {{ nom }}</div>
-      <div><strong>Prénom :</strong> {{ prenom }}</div>
-      <div><strong>Email :</strong> {{ email }}</div>
-       <div><strong>Phone :</strong> {{ phone }}</div>
+      <div><strong>Nom :</strong> {{ userSelectionne?.name }}</div>
+      <div><strong>Prénom :</strong> {{ userSelectionne?.lastName }}</div>
+      <div><strong>Email :</strong> {{ userSelectionne?.email }}</div>
+       <div><strong>Phone :</strong> {{ userSelectionne?.phone }}</div>
     </div>
   </div>
 
@@ -169,21 +174,15 @@
   [vehicule]="vehiculeSelectionne"
   (vehiculeModif)="onVehiculeModif($event)">
 </app-edit-vehicule-modal>
-<!-- Modale HTML réelle -->
-<div class="modal fade" id="editAnnonceModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
+
       <app-edit-annonce-modal
         [trajet]="annonceSelectionne"
         (annonceModif)="onAnnonceModif($event)"
         (fermeture)="annonceSelectionne = null">
       </app-edit-annonce-modal>
-    </div>
-  </div>
-</div>
 
 <app-edit-info-modal
   [user]="userSelectionne"
-  (userModif)="onInfoModif($event)">
+  (infoModifie)="onInfoModif($event)">
 </app-edit-info-modal>
 
